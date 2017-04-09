@@ -2,8 +2,9 @@
 This code will create an executable and dll that work in conjunctoin with one another.
 
 ### Launcher.exe:
+* Usage: Launcher.exe [target_process.exe]
 * Launches a program of your choosing in a suspended state.
-* Injects the DLL
+* Injects the 'injected_VEH.dll' into the target process.
 
 
 ### injected_VEH.dll:
