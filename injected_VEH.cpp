@@ -36,20 +36,6 @@ __declspec(naked) void MyHandler() {
 		add ebx, 0xb8				// eip
 		mov ebx, [ebx]
 		cmp ebx, pLoadAddr
-		
-		// if it's our int3, then set HWBP for ZwVirtualProtect
-
-		// if it's our ZwVirtual, check ebx for "MZP"
-
-			// calculate offset into MZP for x544f4 top of serial
-
-			// set HWBP on x544f4
-
-		// if it's our x544f4
-			
-			// nop x5456b
-		
-		// if it's none of our BP's, xor eax, eax to tell system not ours
 
 		push 0
 		push 0
@@ -58,7 +44,7 @@ __declspec(naked) void MyHandler() {
 		push 0
 		call MessageBoxA
 
-		jmp $
+		jmp $ // Infinite loop
 
 		// The following code can set HWBP in current thread (max 4 at a given time)
 		call GetCurrentThreadId
@@ -93,7 +79,6 @@ __declspec(naked) void MyHandler() {
 		mov esp, ebp
 		pop ebp
 		or eax, 0xffffffff
-		jmp $
 		ret 4
 	}
 }
@@ -108,12 +93,12 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
 		// context of the target. This allows us to set HWBPs on the Main target thread.
 
 		VirtualProtect(pLoadAddr, 0x5, 0x40, &oldProt);	// UnProtect LoadLibraryA
-		pLoadAddr[0] = 0xcc;							// int 3 on loadlibrary
+		pLoadAddr[0] = 0xcc;		// int 3 on loadlibrary
 
 		__asm {
-			push MyHandler								// Exception Handler Code
-			push 1										// #1 VEH
-			mov eax, 0x772d4c41							// RtlAddVectoredExceptionHandler (may need to find addr)
+			push MyHandler		// Exception Handler Code
+			push 1			// #1 VEH
+			mov eax, 0x772d4c41	// RtlAddVectoredExceptionHandler (may need to find addr)
 			call eax
 		}
 		break;
