@@ -1,4 +1,4 @@
-# D.I.V.A.H. (DLL Injected VEH API Hooks)
+# D.I.V.A.H. (DLL Injected VEH API Hook)
 This code will create an executable and dll that work in conjunctoin with one another.
 
 ### Launcher.exe:
