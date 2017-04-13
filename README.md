@@ -1,5 +1,5 @@
 # D.I.V.A.H. (DLL Injected VEH API Hook)
-This code will create an executable and dll that work in conjunctoin with one another.
+This code will create an DLL Injection Launcher which then performs WINAPI Hooking through the use of VEH.
 
 ### Launcher.exe:
 * Usage: Launcher.exe [target_process.exe]
