@@ -10,6 +10,7 @@ DWORD ThreadHandle;
 CONTEXT ThreadContext;
 DWORD oldProt;
 DWORD LoadAddr = (DWORD)GetProcAddress(GetModuleHandleA("kernel32.dll"), "LoadLibraryA");
+DWORD RtlAddr = (DWORD)GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlAddVectoredExceptionHandler");
 LPBYTE pLoadAddr = (LPBYTE)LoadAddr;
 char * title1 = "DLL";
 char * text = "1. DLL INJECTION\n2. DLL REGISTERS VEH IN TARGET SPACE\n3. TARGET WINAPI HOOKED WITH INT3.\n4. EXECUTION TRANSFERRED TO OUR VEH WHEN WINAPI EXECUTED\n5. PROFIT!\0";
