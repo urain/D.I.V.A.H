@@ -99,7 +99,7 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
 		__asm {
 			push MyHandler		// Exception Handler Code
 			push 1			// #1 VEH
-			mov eax, 0x772d4c41	// RtlAddVectoredExceptionHandler (may need to find addr)
+			mov eax, RtlAddr	// RtlAddVectoredExceptionHandler
 			call eax
 		}
 		break;
