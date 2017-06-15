@@ -34,7 +34,7 @@ __declspec(naked) void MyHandler() {
 
 		// check eip for our int3 addr
 		mov ebx, eax
-		add ebx, 0xb8				// eip
+		add ebx, 0xb8			// eip
 		mov ebx, [ebx]
 		cmp ebx, pLoadAddr
 
@@ -45,7 +45,7 @@ __declspec(naked) void MyHandler() {
 		push 0
 		call MessageBoxA
 
-		jmp $ // Infinite loop
+		jmp $ 				// Infinite loop
 
 		// The following code can set HWBP in current thread (max 4 at a given time)
 		call GetCurrentThreadId
@@ -54,22 +54,22 @@ __declspec(naked) void MyHandler() {
 		push 0
 		push 0xfff
 		call OpenThread
-		mov ThreadHandle, eax// store main handle
+		mov ThreadHandle, eax		// store main handle
 
-		sub esp, 0x2d0 // Thread context structure
+		sub esp, 0x2d0 			// Thread context structure
 
 		push esp
 		push ThreadHandle
 		call Wow64GetThreadContext
 
-		mov dword ptr ss : [ebp - 0x2D0], 0x10010//; 2d0 - 10010
-		mov dword ptr ss : [ebp - 0x2cc], 0x773d230f//; dr0 - code to HWBP on
-		mov dword ptr ss : [ebp - 0x2c8], 0//; dr1
-		mov dword ptr ss : [ebp - 0x2c4], 0//; dr2
-		mov dword ptr ss : [ebp - 0x2c0], 0//; dr3
+		mov dword ptr ss : [ebp - 0x2D0], 0x10010	//; 2d0 - 10010
+		mov dword ptr ss : [ebp - 0x2cc], 0x773d230f	//; dr0 - code to HWBP on
+		mov dword ptr ss : [ebp - 0x2c8], 0		//; dr1
+		mov dword ptr ss : [ebp - 0x2c4], 0		//; dr2
+		mov dword ptr ss : [ebp - 0x2c0], 0		//; dr3
 
-		mov dword ptr ss : [ebp - 0x2bc], 0//; dr6
-		mov dword ptr ss : [ebp - 0x2b8], 0x101//; dr7 - Break on execute
+		mov dword ptr ss : [ebp - 0x2bc], 0		//; dr6
+		mov dword ptr ss : [ebp - 0x2b8], 0x101		//; dr7 - Break on execute
 
 		lea eax, dword ptr ss : [ebp - 0x2D0]
 		push eax
